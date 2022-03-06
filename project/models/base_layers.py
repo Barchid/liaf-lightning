@@ -5,6 +5,8 @@ import torch.optim as optim
 
 from spikingjelly.clock_driven import surrogate, layer, neuron
 
+from project.models.liaf import MultiStepLIAFNode
+
 
 class ConvBnSpike(nn.Sequential):
     """Convolution + BatchNorm + spiking neuron activation. Accepts input of dimension (T, B, C, H, W)"""
@@ -34,6 +36,8 @@ class ConvBnSpike(nn.Sequential):
             self.add_module('spike', neuron.MultiStepParametricLIFNode(detach_reset=True, surrogate_function=surr_func))
         elif neuron_model == "IF":
             self.add_module('spike', neuron.MultiStepIFNode(detach_reset=True, surrogate_function=surr_func))
+        elif neuron_model == 'LIAF':
+            self.add_module('spike', MultiStepLIAFNode(detach_reset=True, surrogate_function=surr_func))
         else:
             self.add_module('spike', neuron.MultiStepLIFNode(detach_reset=True, surrogate_function=surr_func))
 
@@ -65,6 +69,8 @@ class ConvSpike(nn.Sequential):
             self.add_module('spike', neuron.MultiStepParametricLIFNode(detach_reset=True, surrogate_function=surr_func))
         elif neuron_model == "IF":
             self.add_module('spike', neuron.MultiStepIFNode(detach_reset=True, surrogate_function=surr_func))
+        elif neuron_model == 'LIAF':
+            self.add_module('spike', MultiStepLIAFNode(detach_reset=True, surrogate_function=surr_func))
         else:
             self.add_module('spike', neuron.MultiStepLIFNode(detach_reset=True, surrogate_function=surr_func))
 
@@ -88,5 +94,7 @@ class LinearSpike(nn.Sequential):
             self.add_module('spike', neuron.MultiStepParametricLIFNode(detach_reset=True, surrogate_function=surr_func))
         elif neuron_model == "IF":
             self.add_module('spike', neuron.MultiStepIFNode(detach_reset=True, surrogate_function=surr_func))
+        elif neuron_model == 'LIAF':
+            self.add_module('spike', MultiStepLIAFNode(detach_reset=True, surrogate_function=surr_func))
         else:
             self.add_module('spike', neuron.MultiStepLIFNode(detach_reset=True, surrogate_function=surr_func))
