@@ -74,5 +74,5 @@ class Lenet5Module(pl.LightningModule):
         parser = ArgumentParser(parents=[parent_parser], add_help=False)
         parser.add_argument('--learning_rate', type=float, default=0.0001)
         parser.add_argument('--bias', action="store_true")
-        parser.add_argument('--neuron_model', choices=["LIF", "PLIF", "IF"], default="LIF")
+        parser.add_argument('--neuron_model', choices=["LIF", "PLIF", "IF", "LIAF"], default="LIAF")
         return parser
